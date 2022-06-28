@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace Sparky
 {
-    public interface IlogBook
+    public interface ILogBook
     {
+        public int LogSeverity { get; set; }
+        public string LogType { get; set; }
         void Message(string message);
 
         bool LogToDb(string message);
@@ -15,10 +17,14 @@ namespace Sparky
         bool LogBalanceAfterWithdrawal(int blanceAfterWithdrawal);
         string MessageWithReturnStr(string message);
         bool LogWithOutputResult(string str, out string outputStr);
+        bool LogWithRefObj(ref Customer customer);
     }
 
-    public class LogBook : IlogBook
+    public class LogBook : ILogBook
     {
+        public int LogSeverity { get; set; }
+        public string LogType { get; set; }
+
         public bool LogBalanceAfterWithdrawal(int blanceAfterWithdrawal)
         {
             if(blanceAfterWithdrawal >= 0)
@@ -39,6 +45,11 @@ namespace Sparky
         public bool LogWithOutputResult(string str, out string outputStr)
         {
             outputStr = "Hello " + str;
+            return true;
+        }
+
+        public bool LogWithRefObj(ref Customer customer)
+        {
             return true;
         }
 
